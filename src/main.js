@@ -29,5 +29,5 @@ const pinia = createPinia(); // Define pinia variable here
 const app = createApp(App).use(IonicVue).use(router).use(createPinia());
 
 router.isReady().then(() => {
-  app.mount("#app").use(pinia);
+  app.mount("#app");
 });
