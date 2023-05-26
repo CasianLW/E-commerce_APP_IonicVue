@@ -1,5 +1,5 @@
 <template>
-  <ion-menu side="start" content-id="main">
+  <ion-menu side="end" content-id="main">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title>Menu</ion-title>
@@ -17,7 +17,7 @@
           >Mentions Legales</ion-item
         >
         <ion-item @click="closeMenu" router-link="/cgv">CGV</ion-item>
-        <ion-item @click="closeMenu" router-link="/politique-confidentialité"
+        <ion-item @click="closeMenu" router-link="/politique-confidentialite"
           >Politique Confidentialité</ion-item
         >
 
@@ -57,10 +57,10 @@
   <div class="ion-page" id="main">
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-buttons slot="start">
+        <ion-title>Logo</ion-title>
+        <ion-buttons slot="end">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>App</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
