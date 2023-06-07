@@ -20,6 +20,7 @@
           <ion-item router-link="/contact">Contact Us</ion-item>
         </ion-list>
       </div>
+      <SubscriptionsComponent />
       <NewsletterComponent />
     </ion-content>
   </ion-page>
@@ -40,7 +41,7 @@ import {
 import { onBeforeMount, ref } from "vue";
 import { useIonRouter } from "@ionic/vue";
 import NewsletterComponent from "@/components/NewsletterComponent.vue";
-import SubscriptionsComponent from "@/components/NewsletterComponent.vue";
+import SubscriptionsComponent from "@/components/SubscriptionsComponent.vue";
 
 export default {
   components: {
