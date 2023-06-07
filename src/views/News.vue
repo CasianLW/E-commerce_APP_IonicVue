@@ -1,13 +1,18 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-back-button
+      style="margin-right: auto"
+      default-href="/"
+    ></ion-back-button>
+
+    <!-- <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button default-href="/"></ion-back-button>
         </ion-buttons>
         <ion-title>News</ion-title>
       </ion-toolbar>
-    </ion-header>
+    </ion-header> -->
     <ion-content class="ion-padding">
       <p>
         Page a dev
