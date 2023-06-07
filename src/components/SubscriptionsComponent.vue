@@ -105,8 +105,8 @@ export default {
           title: "Supporter",
           list: [
             "Early accès à tous les jeux",
-            "Early accès à tous les jeux",
-            "Early accès à tous les jeux",
+            "Supporter profile banner & name color",
+            "Vote for further updates",
           ],
           price: "4.99€",
         },
