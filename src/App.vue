@@ -63,9 +63,36 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
+
     <ion-content>
       <router-view />
     </ion-content>
+
+    <ion-footer>
+      <ion-tabs>
+        <ion-tab-bar slot="bottom">
+          <ion-tab-button tab="home" href="/homepage">
+            <ion-icon name="home-outline"></ion-icon>
+            <ion-label>Acueil</ion-label>
+          </ion-tab-button>
+
+          <ion-tab-button tab="offer" href="/offer">
+            <ion-icon name="pricetag-outline"></ion-icon>
+            <ion-label>Offre</ion-label>
+          </ion-tab-button>
+
+          <ion-tab-button tab="news" href="/news">
+            <ion-icon name="newspaper-outline"></ion-icon>
+            <ion-label>Actualités</ion-label>
+          </ion-tab-button>
+
+          <ion-tab-button tab="account" :href="accountLink">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>Compte</ion-label>
+          </ion-tab-button>
+        </ion-tab-bar>
+      </ion-tabs>
+    </ion-footer>
   </div>
 </template>
 
@@ -115,11 +142,15 @@ export default defineComponent({
       window.location.reload(); // Refresh the page
     }
     const userIsAuthenticated = computed(() => authStore.loggedIn);
+    const accountLink = computed(() =>
+      userIsAuthenticated.value ? "/account" : "/login"
+    );
 
     return {
       userIsAuthenticated,
       logout,
       closeMenu,
+      accountLink,
     };
   },
 });
