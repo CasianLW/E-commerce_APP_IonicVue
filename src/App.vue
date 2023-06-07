@@ -58,7 +58,7 @@
     <ion-header>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <router-link to="/homepage">
+          <router-link style="margin-left: 20%" to="/homepage">
             <img
               src="@/ressources/gamoshiLogo.svg"
               alt="Logo gamoshi"
