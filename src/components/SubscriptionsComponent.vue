@@ -1,9 +1,10 @@
 <template>
-  <ion-card
+  <div
     style="
       margin: auto;
       background-color: #7458ea;
       border-radius: 0 0 25px 25px;
+      padding-bottom: 4px;
     "
     class="section"
   >
@@ -64,7 +65,7 @@
         <div class=""></div>
       </div> -->
     </ion-card-content>
-  </ion-card>
+  </div>
 </template>
 
 <script>
@@ -77,8 +78,8 @@ import {
   IonInput,
   IonButton,
 } from "@ionic/vue";
-
 import "vue3-carousel/dist/carousel.css";
+
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 export default {
