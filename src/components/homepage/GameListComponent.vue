@@ -64,6 +64,10 @@ import "vue3-carousel/dist/carousel.css";
 
 import { IonCard, IonCardHeader, IonCardTitle } from "@ionic/vue";
 import gameImage1 from "@/ressources/games/gameImage1.jpg";
+import gameImage2 from "@/ressources/games/gameImage2.jpg";
+import gameImage3 from "@/ressources/games/gameImage3.jpg";
+import gameImage4 from "@/ressources/games/gameImage4.jpg";
+import gameImage5 from "@/ressources/games/gameImage5.jpg";
 
 export default {
   name: "GameListComponent",
@@ -99,25 +103,25 @@ export default {
           title: "Wifa 2028",
           thumbnailType: "medium",
           category: ["RPG"],
-          image: gameImage1,
+          image: gameImage2,
         },
         {
           title: "Beach Run",
           thumbnailType: "small",
           category: ["FPS", "SANDBOX"],
-          image: gameImage1,
+          image: gameImage3,
         },
         {
           title: "Lost Mario",
           thumbnailType: "square",
           category: ["RPG", "SANDBOX"],
-          image: gameImage1,
+          image: gameImage4,
         },
         {
           title: "Simulator",
           thumbnailType: "large",
           category: ["SANDBOX"],
-          image: gameImage1,
+          image: gameImage5,
         },
       ],
     };
