@@ -76,5 +76,24 @@ export const useAuthStore = defineStore("auth", {
         throw new Error(error.message);
       }
     },
+    async createCheckoutSession() {
+      if (!this.loggedIn) {
+        throw new Error("User must be logged in to start checkout session");
+      }
+
+      const response = await axios.post(
+        `${apiUrl}/api/checkout-session`,
+        {
+          stripeCustomerId: this.user.stripeCustomerId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.token}`,
+          },
+        }
+      );
+
+      return response.data.sessionId;
+    },
   },
 });
