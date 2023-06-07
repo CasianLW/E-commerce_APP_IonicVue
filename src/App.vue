@@ -57,9 +57,24 @@
   <div class="ion-page" id="main">
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>Logo</ion-title>
+        <ion-buttons slot="start">
+          <router-link to="/homepage">
+            <img
+              src="@/ressources/gamoshiLogo.svg"
+              alt="Logo gamoshi"
+              class="logo"
+            />
+          </router-link>
+        </ion-buttons>
         <ion-buttons slot="end">
-          <ion-menu-button></ion-menu-button>
+          <div class="icon-container">
+            <img src="@/ressources/basketIcon.svg" alt="Panier" />
+            <ion-label>Panier</ion-label>
+          </div>
+          <div class="icon-container">
+            <ion-menu-button></ion-menu-button>
+            <ion-label>Menu</ion-label>
+          </div>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -70,26 +85,51 @@
 
     <ion-footer>
       <ion-tabs>
-        <ion-tab-bar slot="bottom">
-          <ion-tab-button tab="home" href="/homepage">
-            <img src="@/ressources/homeIcon.svg" alt="Acueil" />
-            <ion-label>Acueil</ion-label>
-          </ion-tab-button>
-
-          <ion-tab-button tab="offer" href="/offer">
-            <img src="@/ressources/offerIcon.svg" alt="Offre" />
-            <ion-label>Offre</ion-label>
-          </ion-tab-button>
-
-          <ion-tab-button tab="news" href="/news">
-            <img src="@/ressources/newsIcon.svg" alt="Actualités" />
-            <ion-label>Actualités</ion-label>
-          </ion-tab-button>
-
-          <ion-tab-button tab="account" :href="accountLink">
-            <img src="@/ressources/profileIcon.svg" alt="Compte" />
-            <ion-label>Compte</ion-label>
-          </ion-tab-button>
+        <ion-tab-bar
+          style="
+            display: flex;
+            position: fixed;
+            bottom: 5vh;
+            margin: auto;
+            width: 100%;
+            justify-content: center;
+          "
+          slot="bottom"
+        >
+          <div
+            style="
+              display: flex;
+              background-color: black;
+              gap: 4px;
+              padding: 8px 20px;
+              border-radius: 999px;
+            "
+          >
+            <ion-tab-button tab="home">
+              <router-link class="icon-container" to="/homepage">
+                <img src="@/ressources/homeIcon.svg" alt="Acueil" />
+                <ion-label>Accueil</ion-label>
+              </router-link>
+            </ion-tab-button>
+            <ion-tab-button tab="offer" href="/offer">
+              <router-link class="icon-container" to="/offer">
+                <img src="@/ressources/offerIcon.svg" alt="Offre" />
+                <ion-label>Offre</ion-label>
+              </router-link>
+            </ion-tab-button>
+            <ion-tab-button tab="news" href="/news">
+              <router-link class="icon-container" to="/news">
+                <img src="@/ressources/newsIcon.svg" alt="Actualités" />
+                <ion-label>Actualités</ion-label>
+              </router-link>
+            </ion-tab-button>
+            <ion-tab-button tab="account" :href="accountLink">
+              <router-link class="icon-container" :to="accountLink">
+                <img src="@/ressources/profileIcon.svg" alt="Compte" />
+                <ion-label>Compte</ion-label>
+              </router-link>
+            </ion-tab-button>
+          </div>
         </ion-tab-bar>
       </ion-tabs>
     </ion-footer>
@@ -155,3 +195,24 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.logo {
+  height: 48px; /* Vous pouvez ajuster la taille du logo selon vos besoins */
+}
+
+.icon-container img {
+  width: 32px;
+  max-width: 44px;
+}
+.icon-container {
+  margin: 0 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: white;
+  text-decoration: none;
+}
+</style>
