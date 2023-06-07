@@ -8,10 +8,10 @@
     <ion-content>
       <ion-list>
         <!-- Global pages -->
-        <ion-item @click="closeMenu" router-link="/homepage">Homepage</ion-item>
-        <ion-item @click="closeMenu" router-link="/subscriptions"
+        <!-- <ion-item @click="closeMenu" router-link="/homepage">Homepage</ion-item> -->
+        <!-- <ion-item @click="closeMenu" router-link="/subscriptions"
           >Subscriptions</ion-item
-        >
+        > -->
         <ion-item @click="closeMenu" router-link="/contact">Contact</ion-item>
         <ion-item @click="closeMenu" router-link="/mentions-legales"
           >Mentions Legales</ion-item
