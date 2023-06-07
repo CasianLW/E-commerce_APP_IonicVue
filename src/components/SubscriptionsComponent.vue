@@ -36,67 +36,33 @@
         padding: 0;
       "
     >
-      <ion-card-content
-        class="slider-item"
-        style="
-          padding-bottom: 68px !important;
-          border-radius: 20px;
-          background-color: #d3fe57;
-        "
-      >
-        <ion-card-title class="card-title">Supporter</ion-card-title>
-        <div>
-          <div class="list-item">
-            <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
-            <p>Early accès à tous les jeux</p>
-          </div>
-          <div class="list-item">
-            <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
-            <p>Early accès à tous les jeux</p>
-          </div>
-          <div class="list-item">
-            <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
-            <p>Early accès à tous les jeux</p>
-          </div>
-        </div>
-        <div class="subscribe-infos">
-          <p>4.99€ / MONTH</p>
-          <button>Subscribe</button>
-        </div>
-      </ion-card-content>
-      <ion-card-content
-        class="slider-item"
-        style="
-          padding-bottom: 68px !important;
-          border-radius: 20px;
-          background-color: #d3fe57;
-        "
-      >
-        <ion-card-title class="card-title">Supporter</ion-card-title>
-        <div>
-          <div class="list-item">
-            <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
-            <p>Early accès à tous les jeux</p>
-          </div>
-          <div class="list-item">
-            <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
-            <p>Early accès à tous les jeux</p>
-          </div>
-          <div class="list-item">
-            <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
-            <p>Early accès à tous les jeux</p>
-          </div>
-        </div>
-        <div class="subscribe-infos">
-          <p>4.99€ / MONTH</p>
-          <button>Subscribe</button>
-        </div>
-      </ion-card-content>
-      <div class="slider-infos">
+      <Carousel style="width: 100%">
+        <Slide style="width: 100%" v-for="(item, index) in items" :key="index">
+          <ion-card-content class="slider-item">
+            <ion-card-title class="card-title">{{ item.title }}</ion-card-title>
+            <div>
+              <div class="list-item" v-for="(list, i) in item.list" :key="i">
+                <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
+                <p>{{ list }}</p>
+              </div>
+            </div>
+            <div class="subscribe-infos">
+              <p>{{ item.price }} / MONTH</p>
+              <button>Subscribe</button>
+            </div>
+          </ion-card-content>
+        </Slide>
+
+        <template #addons="{ slidesCount }">
+          <Navigation v-if="slidesCount > 1" />
+          <Pagination v-if="slidesCount > 1" />
+        </template>
+      </Carousel>
+      <!-- <div class="slider-infos">
         <div class="active-slide"></div>
         <div class=""></div>
         <div class=""></div>
-      </div>
+      </div> -->
     </ion-card-content>
   </ion-card>
 </template>
@@ -112,6 +78,9 @@ import {
   IonButton,
 } from "@ionic/vue";
 
+import "vue3-carousel/dist/carousel.css";
+import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+
 export default {
   name: "SubscriptionsComponent",
   components: {
@@ -122,24 +91,57 @@ export default {
     IonCardContent,
     IonInput,
     IonButton,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
   },
   data() {
     return {
-      inputFocus: false, // whether input is focused
+      items: [
+        {
+          title: "Supporter",
+          list: [
+            "Early accès à tous les jeux",
+            "Early accès à tous les jeux",
+            "Early accès à tous les jeux",
+          ],
+          price: "4.99€",
+        },
+        {
+          title: "Uber",
+          list: [
+            "Supporter bonuses",
+            "Uber profile banner & name color",
+            "In-game battlepasses",
+          ],
+          price: "19.99€",
+        },
+        {
+          title: "Final Boss",
+          list: [
+            "Uber bonuses",
+            "FINAL BOSS profile banner & name color",
+            "Because i can",
+            "Access to farmbots",
+          ],
+          price: "49.99€",
+        },
+        // Add more items here...
+      ],
     };
-  },
-  methods: {
-    handleFocus() {
-      this.inputFocus = true;
-    },
-    handleBlur() {
-      this.inputFocus = false;
-    },
   },
 };
 </script>
 
 <style scoped>
+.slider-item {
+  max-height: 220px;
+  padding-bottom: 88px !important;
+  border-radius: 20px;
+  background-color: #d3fe57;
+  width: 100%;
+}
 .card-title {
   color: #7458ea;
   text-decoration: underline;
@@ -190,5 +192,50 @@ export default {
 }
 .active-slide {
   background-color: black !important;
+}
+
+/* classes pour le carrousel */
+.carousel__slide {
+  padding: 10px;
+}
+
+.carousel__prev,
+.carousel__next {
+  /* style the navigation arrows */
+  color: #fff;
+  position: absolute !important;
+  bottom: 0;
+}
+
+.carousel__pagination {
+  /* style the pagination component */
+  /* background-color: #000; */
+  border-radius: 999px;
+  bottom: 0;
+  right: 5%;
+  position: absolute;
+  z-index: 100;
+}
+
+.carousel__pagination-item {
+  /* style the pagination items */
+  color: #fff;
+}
+
+.carousel__item {
+  /* add space between slides */
+  margin-right: 10px;
+}
+:deep(.carousel__pagination-button)::after {
+  border-radius: 99px !important;
+  width: 28px;
+  height: 6px;
+}
+
+:deep(.carousel__prev),
+:deep(.carousel__next) {
+  position: absolute;
+  top: 20%;
+  border-radius: 99px;
 }
 </style>
