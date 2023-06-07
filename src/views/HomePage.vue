@@ -1,38 +1,24 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button v-if="canGoBack" default-href="/"></ion-back-button>
+          <ion-back-button v-if="canGoBack"></ion-back-button>
         </ion-buttons>
         <ion-title>Homepage</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button
-              v-if="canGoBack"
-              default-href="/"
-            ></ion-back-button>
-          </ion-buttons>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
+    <ion-content>
+      <div class="container">
+        <h1>Welcome to the App</h1>
+        <p>Get started with our features below:</p>
 
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>
-          Start with Ionic
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://ionicframework.com/docs/components"
-            >UI Components</a
-          >
-        </p>
+        <ion-list>
+          <ion-item router-link="/features">Features</ion-item>
+          <ion-item router-link="/docs">Docs</ion-item>
+          <ion-item router-link="/contact">Contact Us</ion-item>
+        </ion-list>
       </div>
     </ion-content>
   </ion-page>
@@ -47,6 +33,8 @@ import {
   IonToolbar,
   IonBackButton,
   IonButtons,
+  IonItem,
+  IonList,
 } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
 import { useIonRouter } from "@ionic/vue";
@@ -60,6 +48,8 @@ export default {
     IonToolbar,
     IonBackButton,
     IonButtons,
+    IonItem,
+    IonList,
   },
   setup() {
     const ionRouter = useIonRouter();
@@ -75,3 +65,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.container {
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+ion-list {
+  margin-top: 20px;
+}
+</style>
