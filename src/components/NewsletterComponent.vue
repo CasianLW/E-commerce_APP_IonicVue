@@ -23,7 +23,9 @@
         @ionFocus="handleFocus"
         @ionBlur="handleBlur"
       ></ion-input>
-      <ion-button class="subscribebtn" expand="full">Subscribe</ion-button>
+      <ion-button class="subscribebtn" color="black" expand="full"
+        >Subscribe</ion-button
+      >
     </ion-card-content>
   </ion-card>
 </template>
