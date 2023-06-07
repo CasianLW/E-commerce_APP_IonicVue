@@ -1,33 +1,59 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
+# Created by https://www.toptal.com/developers/gitignore/api/vue,vuejs,ionic3,dotenv
+# Edit at https://www.toptal.com/developers/gitignore?templates=vue,vuejs,ionic3,dotenv
 
+### dotenv ###
+.env
+
+### Ionic3 ###
+# Log an tmp data
 *~
 *.sw[mnpcod]
-.tmp
+*.log
 *.tmp
 *.tmp.*
-*.sublime-project
-*.sublime-workspace
+log.txt
+
+# NPM (Node Package Manager) files
+npm-debug.log*
+node_modules/
+tmp/
+temp/
+
+# Preprocessors cache files
+.sourcemaps/
+.sass-cache/
+.tmp/
+hooks/
+
+# Ionic 3 plugins files
+platforms/
+plugins/
+plugins/android.json
+plugins/ios.json
+www/
+
+# Trash data
+$RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-$RECYCLE.BIN/
 
-*.log
-log.txt
-npm-debug.log*
+### Vue ###
+# gitignore template for Vue.js projects
+#
+# Recommended template: Node.gitignore
 
-/.idea
-/.ionic
-/.sass-cache
-/.sourcemaps
-/.versions
-/.vscode/*
-!/.vscode/extensions.json
-/coverage
-/dist
-/node_modules
-/platforms
-/plugins
-/www
-package-lock.json
+# TODO: where does this rule come from?
+docs/_book
+
+# TODO: where does this rule come from?
+test/
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+dist/
+npm-debug.log
+yarn-error.log
+
+# End of https://www.toptal.com/developers/gitignore/api/vue,vuejs,ionic3,dotenv
