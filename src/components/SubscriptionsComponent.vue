@@ -5,12 +5,13 @@
       background-color: #7458ea;
       border-radius: 0 0 25px 25px;
       padding-bottom: 4px;
+      margin-top: -2px;
+      z-index: 100;
+      position: relative;
     "
     class="section"
   >
-    <ion-card-header
-      style="flex-direction: column; text-align: center; margin: 28px 0"
-    >
+    <ion-card-header style="flex-direction: column; text-align: center">
       <ion-card-title style="color: #d3fe57" class="section-title"
         >Subscriptions</ion-card-title
       >
