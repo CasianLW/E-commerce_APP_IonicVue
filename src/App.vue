@@ -72,22 +72,22 @@
       <ion-tabs>
         <ion-tab-bar slot="bottom">
           <ion-tab-button tab="home" href="/homepage">
-            <ion-icon name="home-outline"></ion-icon>
+            <img src="@/ressources/homeIcon.svg" alt="Acueil" />
             <ion-label>Acueil</ion-label>
           </ion-tab-button>
 
           <ion-tab-button tab="offer" href="/offer">
-            <ion-icon name="pricetag-outline"></ion-icon>
+            <img src="@/ressources/offerIcon.svg" alt="Offre" />
             <ion-label>Offre</ion-label>
           </ion-tab-button>
 
           <ion-tab-button tab="news" href="/news">
-            <ion-icon name="newspaper-outline"></ion-icon>
+            <img src="@/ressources/newsIcon.svg" alt="Actualités" />
             <ion-label>Actualités</ion-label>
           </ion-tab-button>
 
           <ion-tab-button tab="account" :href="accountLink">
-            <ion-icon name="person-outline"></ion-icon>
+            <img src="@/ressources/profileIcon.svg" alt="Compte" />
             <ion-label>Compte</ion-label>
           </ion-tab-button>
         </ion-tab-bar>
