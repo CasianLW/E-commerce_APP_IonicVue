@@ -1,35 +1,56 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const apiUrl = "https://api-app-notes-ajvs.onrender.com";
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: {},
-    loggedIn: false,
+    loggedIn: !!localStorage.getItem("token"),
   }),
   actions: {
-    async register(username, email, password) {
+    async register(name, email, password, phone, zip, city, location) {
+      console.log(name, email, password, phone, zip, city, location);
+
       try {
-        const response = await axios.post(`${apiUrl}/api/auth/register`, {
-          email: email,
-          password: password,
-          name: username,
+        const response = await fetch(`${apiUrl}/api/auth/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            phone: phone,
+            zip: zip,
+            city: city,
+            location: location,
+          }),
         });
-        //console.log(response.data);
 
-        const user = response.data;
+        if (!response.ok) {
+          throw new Error(`Registration failed with status ${response.status}`);
+        }
 
-        this.loggedIn = true;
-        this.user = user;
-        localStorage.setItem("token", user.token);
+        const user = await response.json();
+
+        if (user) {
+          this.loggedIn = true;
+          this.user = user;
+          localStorage.setItem("token", user.token);
+        } else {
+          throw new Error("Registration failed: no user data in response");
+        }
       } catch (error) {
+        console.error("Registration failed:", error);
         throw error;
       }
     },
+
     async login(email, password) {
-      console.log(email);
-      console.log(password);
+      // console.log(email);
+      // console.log(password);
 
       try {
         const response = await axios.post(`${apiUrl}/api/auth/login`, {
