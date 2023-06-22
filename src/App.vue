@@ -1,5 +1,5 @@
 <template>
-  <ion-menu side="end" content-id="main">
+  <ion-menu side="start" content-id="main">
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title>Menu</ion-title>
@@ -55,7 +55,7 @@
   </ion-menu>
 
   <div class="ion-page" id="main">
-    <ion-header>
+    <!-- <ion-header>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <router-link style="margin-left: 20%" to="/homepage">
@@ -77,22 +77,26 @@
           </div>
         </ion-buttons>
       </ion-toolbar>
-    </ion-header>
+    </ion-header> -->
 
     <ion-content>
       <router-view />
     </ion-content>
 
-    <ion-footer>
-      <ion-tabs>
+    <ion-footer style="border-radius: 999px">
+      <div style="border-radius: 999px; display: flex; justify-content: center">
         <ion-tab-bar
           style="
             display: flex;
             position: fixed;
             bottom: 5vh;
             margin: auto;
-            width: 100%;
+            border: none;
+            padding: 6px 0px;
+            width: 90%;
             justify-content: center;
+            border-radius: 999px;
+            background-color: transparent;
           "
           slot="bottom"
         >
@@ -100,38 +104,62 @@
             style="
               display: flex;
               background-color: black;
-              gap: 4px;
-              padding: 8px 20px;
+              gap: 0px;
+              width: 100%;
+              padding: 16px 8px;
               border-radius: 999px;
+              align-items: center;
+              justify-content: center;
             "
           >
-            <ion-tab-button tab="home">
-              <router-link class="icon-container" to="/homepage">
-                <img src="@/ressources/homeIcon.svg" alt="Acueil" />
+            <ion-tab-button class="icon-container">
+              <a href="">
+                <ion-menu-button></ion-menu-button>
+                <ion-label>Menu</ion-label>
+              </a>
+            </ion-tab-button>
+            <ion-tab-button class="icon-container">
+              <!-- <img src="@/ressources/basketIcon.svg" alt="Panier" /> -->
+              <a>
+                <ion-icon name="bag"></ion-icon>
+                <ion-label>Panier</ion-label>
+              </a>
+            </ion-tab-button>
+            <ion-tab-button
+              exact-active-class="active-link"
+              to="/homepage"
+              class="icon-container"
+              tab="home"
+            >
+              <router-link exact-active-class="active-link" to="/homepage">
+                <!-- <img src="@/ressources/homeIcon.svg" alt="Acueil" /> -->
+                <ion-icon name="home"></ion-icon>
                 <ion-label>Accueil</ion-label>
               </router-link>
             </ion-tab-button>
-            <ion-tab-button tab="offer" href="/offer">
-              <router-link class="icon-container" to="/offer">
-                <img src="@/ressources/offerIcon.svg" alt="Offre" />
-                <ion-label>Offre</ion-label>
-              </router-link>
-            </ion-tab-button>
-            <ion-tab-button tab="news" href="/news">
-              <router-link class="icon-container" to="/news">
-                <img src="@/ressources/newsIcon.svg" alt="Actualités" />
+            <ion-tab-button class="icon-container" tab="news" href="/news">
+              <router-link exact-active-class="active-link" to="/news">
+                <!-- <img src="@/ressources/newsIcon.svg" alt="Actualités" /> -->
+                <ion-icon name="newspaper"></ion-icon>
+
                 <ion-label>Actualités</ion-label>
               </router-link>
             </ion-tab-button>
-            <ion-tab-button tab="account" :href="accountLink">
-              <router-link class="icon-container" :to="accountLink">
-                <img src="@/ressources/profileIcon.svg" alt="Compte" />
+            <ion-tab-button
+              class="icon-container"
+              tab="account"
+              :href="accountLink"
+            >
+              <router-link exact-active-class="active-link" :to="accountLink">
+                <!-- <img src="@/ressources/profileIcon.svg" alt="Compte" /> -->
+                <ion-icon :icon="personCircleIcon"></ion-icon>
+
                 <ion-label>Compte</ion-label>
               </router-link>
             </ion-tab-button>
           </div>
         </ion-tab-bar>
-      </ion-tabs>
+      </div>
     </ion-footer>
   </div>
 </template>
@@ -148,12 +176,30 @@ import {
   IonItem,
   IonButtons,
   IonMenuButton,
+  IonIcon,
+  IonFooter,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonLabel,
+  IonRouterOutlet,
 } from "@ionic/vue";
+import { addIcons } from "ionicons";
+import {
+  arrowBack,
+  arrowForward,
+  home,
+  bag,
+  personCircle,
+  newspaper,
+} from "ionicons/icons";
 import { useAuthStore } from "@/stores/auth.js";
 
 import { menuController } from "@ionic/vue";
 import { useRouter } from "vue-router";
 
+// Register the IonIcon component globally
+addIcons({ arrowBack, arrowForward, home, bag, personCircle, newspaper });
 export default defineComponent({
   components: {
     IonMenu,
@@ -165,11 +211,19 @@ export default defineComponent({
     IonItem,
     IonButtons,
     IonMenuButton,
+    IonIcon,
+    IonFooter,
+    IonTabs,
+    IonTabBar,
+    IonTabButton,
+    IonLabel,
+    IonRouterOutlet,
   },
 
   setup() {
     const authStore = useAuthStore();
     const router = useRouter();
+    const personCircleIcon = personCircle;
 
     function closeMenu() {
       menuController.close();
@@ -177,6 +231,7 @@ export default defineComponent({
 
     function logout() {
       authStore.logout();
+      localStorage.removeItem("token");
       closeMenu();
       router.push({ path: "/logout" });
       window.location.reload(); // Refresh the page
@@ -191,28 +246,55 @@ export default defineComponent({
       logout,
       closeMenu,
       accountLink,
+      personCircleIcon,
     };
   },
 });
 </script>
 
 <style scoped>
+.active-link {
+  color: #d3fe57 !important;
+}
+
 .logo {
   height: 48px; /* Vous pouvez ajuster la taille du logo selon vos besoins */
 }
 
-.icon-container img {
+/* .icon-container img {
   width: 32px;
   max-width: 44px;
+} */
+.icon-container ion-label {
+  color: white;
+  text-decoration: none !important;
+  font-size: 12px;
+  font-weight: 400;
+}
+.icon-container a {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  float: inline-end;
+  margin: 0;
+  padding: 0;
+}
+.icon-container router-link {
+  margin: 0;
+  padding: 0;
 }
 .icon-container {
-  margin: 0 12px;
-  display: flex;
+  background-color: transparent;
+  /* margin: 0 12px; */
+  display: block;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: white;
-  text-decoration: none;
+  /* font-size: 12px; */
+  /* color: white;
+  text-decoration: none; */
+}
+ion-icon {
+  font-size: 24px;
 }
 </style>
