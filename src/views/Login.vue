@@ -8,45 +8,76 @@
       </ion-header> -->
       <ion-header>
         <ion-toolbar>
-          <ion-title class="ion-text-center">Login</ion-title>
+          <ion-buttons slot="start">
+            <ion-back-button default-href="/home"></ion-back-button>
+          </ion-buttons>
+          <ion-title class="ion-text-center ion-align-items-center"
+            >Login</ion-title
+          >
         </ion-toolbar>
       </ion-header>
 
       <main>
-        <form @submit.prevent="login">
+        <img
+          style="width: 70%; margin: auto; display: block"
+          src="@/ressources/connexion/loginImage.png"
+          alt="Image connexion"
+        />
+        <h1
+          size="large"
+          class="ion-text-center ion-align-items-center ion-padding-bottom"
+        >
+          Connectez-vous
+        </h1>
+        <form class="ion-margin-bottom ion-margin-top" @submit.prevent="login">
           <ion-item>
-            <ion-label position="stacked">Email:</ion-label>
+            <!-- <ion-label position="stacked">Email:</ion-label> -->
             <Field name="email" :rules="emailRules">
               <template #default="{ field }">
                 <ion-input
                   type="text"
                   v-bind="field"
                   autocomplete="email"
+                  label="Email:"
                 ></ion-input>
 
-                <div v-if="field.value">
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="email" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="email" class="error" />
+          </div>
           <ion-item>
-            <ion-label position="stacked">Password:</ion-label>
+            <!-- <ion-label position="stacked">Password:</ion-label> -->
             <Field name="password" :rules="passwordRules">
               <template #default="{ field }">
                 <ion-input
                   type="password"
                   v-bind="field"
                   autocomplete="current-password"
+                  label="Password:"
                 ></ion-input>
-                <div v-if="field.value">
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="password" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="password" class="error" />
+          </div>
 
-          <ion-button expand="full" type="submit">Login</ion-button>
+          <ion-button
+            class="ion-margin"
+            expand="full"
+            shape="round"
+            type="submit"
+            :disabled="hasErrors"
+            >Login</ion-button
+          >
           <div style="text-align: center">
             <router-link style="margin: auto" to="/register">
               Pas de compte? S'enregistrer
@@ -71,7 +102,7 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useAuthStore } from "../stores/auth";
 import { useRouter } from "vue-router";
 import {
@@ -82,6 +113,11 @@ import {
   IonContent,
   IonSpinner,
   IonInput,
+  IonBackButton,
+  IonItem,
+  IonButton,
+  IonButtons,
+  IonLabel,
 } from "@ionic/vue";
 import {
   useForm,
@@ -147,10 +183,16 @@ export default {
     ErrorMessage,
     IonSpinner,
     IonInput,
+    IonBackButton,
+    IonItem,
+    IonButton,
+    IonButtons,
+    IonLabel,
   },
   setup() {
     const activeSpinner = ref(false);
     const { handleSubmit, resetForm, errors } = useForm();
+    const hasErrors = computed(() => Object.keys(errors.value).length > 0);
 
     const error = ref(false);
     const errorMessage = ref("");
@@ -185,13 +227,14 @@ export default {
       emailRules,
       passwordRules,
       activeSpinner,
+      hasErrors,
     };
   },
 };
 </script>
 
 <style scoped>
-.error {
-  color: red;
+template {
+  display: block;
 }
 </style>
