@@ -1,10 +1,10 @@
 <template>
   <ion-page>
-    <ion-back-button
+    <!-- <ion-back-button
       style="margin-right: auto"
       default-href="/"
       v-if="canGoBack"
-    ></ion-back-button>
+    ></ion-back-button> -->
     <!-- <ion-back-button
       style="margin-right: auto; width: fit-content"
       default-href="/"
@@ -62,7 +62,7 @@
       </div>
       <GameListComponent />
       <SubscriptionsComponent />
-      <NewsletterComponent style="margin-bottom: 160px" />
+      <NewsletterComponent style="padding-bottom: 160px" />
     </ion-content>
   </ion-page>
 </template>
@@ -77,6 +77,7 @@ import {
   IonBackButton,
   IonButtons,
   IonItem,
+  IonLabel,
   IonList,
 } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
@@ -97,6 +98,7 @@ export default {
     IonBackButton,
     IonButtons,
     IonItem,
+    IonLabel,
     IonList,
     NewsletterComponent,
     SubscriptionsComponent,
