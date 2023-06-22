@@ -18,4 +18,12 @@
 
 .stack-item {
   grid-area: 1/1/2/2;
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map */
+main {
+  padding-bottom: 140px;
+}
+.error {
+  color: red;
+  /* display: block; 
+  margin-top: 4px;  */
+}
