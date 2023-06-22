@@ -2,111 +2,177 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title class="ion-text-center">Register</ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button default-href="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center ion-align-items-center"
+          >Register</ion-title
+        >
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
+      <!-- <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">Register</ion-title>
         </ion-toolbar>
-      </ion-header>
+      </ion-header> -->
 
       <main>
         <!-- <Error :error="hasError" :errors="errorMessages" /> -->
 
-        <form @submit.prevent="register">
+        <img
+          style="width: 70%; margin: auto; display: block"
+          src="@/ressources/connexion/registerImage.png"
+          alt="Image connexion"
+        />
+        <h1
+          size="large"
+          class="ion-text-center ion-align-items-center ion-padding-bottom"
+        >
+          Création de compte
+        </h1>
+
+        <form
+          class="ion-margin-bottom ion-margin-top"
+          @submit.prevent="register"
+        >
           <ion-item>
-            <ion-label position="stacked">Username:</ion-label>
             <Field name="name" :rules="usernameRules">
               <template #default="{ field }">
                 <ion-input
                   type="text"
                   v-bind="field"
                   autocomplete="username"
+                  label="Username:"
                 ></ion-input>
-                <div v-if="field.value">
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="username" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="username" class="error" />
+          </div>
+
           <ion-item>
-            <ion-label position="stacked">Email:</ion-label>
             <Field name="email" :rules="emailRules">
               <template #default="{ field }">
                 <ion-input
                   type="email"
                   v-bind="field"
                   autocomplete="email"
+                  label="Email:"
                 ></ion-input>
-                <div v-if="field.value">
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="email" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="email" class="error" />
+          </div>
+
           <ion-item>
-            <ion-label position="stacked">Password:</ion-label>
             <Field name="password" :rules="passwordRules">
               <template #default="{ field }">
                 <ion-input
                   type="password"
                   v-bind="field"
                   autocomplete="current-password"
+                  label="Password:"
                 ></ion-input>
-                <div v-if="field.value">
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="password" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="password" class="error" />
+          </div>
+
           <ion-item>
-            <ion-label position="stacked">Adresse:</ion-label>
             <Field name="location" :rules="addressRules">
               <template #default="{ field }">
-                <ion-input type="text" v-bind="field"></ion-input>
-                <div v-if="field.value">
+                <ion-input
+                  type="text"
+                  v-bind="field"
+                  label="Adresse:"
+                ></ion-input>
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="adresse" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="adresse" class="error" />
+          </div>
+
           <ion-item>
-            <ion-label position="stacked">Ville:</ion-label>
             <Field name="city" :rules="cityRules">
               <template #default="{ field }">
-                <ion-input type="text" v-bind="field"></ion-input>
-                <div v-if="field.value">
+                <ion-input
+                  type="text"
+                  v-bind="field"
+                  label="Ville:"
+                ></ion-input>
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="ville" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="ville" class="error" />
+          </div>
+
           <ion-item>
-            <ion-label position="stacked">Code postal:</ion-label>
             <Field name="zip" :rules="postalCodeRules">
               <template #default="{ field }">
-                <ion-input type="text" v-bind="field"></ion-input>
-                <div v-if="field.value">
+                <ion-input
+                  type="text"
+                  v-bind="field"
+                  label="Code postal:"
+                ></ion-input>
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="codePostal" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="codePostal" class="error" />
+          </div>
+
           <ion-item>
-            <ion-label position="stacked">Numero de téléphone:</ion-label>
             <Field name="phone" :rules="phoneRules">
               <template #default="{ field }">
-                <ion-input type="text" v-bind="field"></ion-input>
-                <div v-if="field.value">
+                <ion-input
+                  type="text"
+                  v-bind="field"
+                  label="Numero de téléphone:"
+                ></ion-input>
+                <!-- <div v-if="field.value">
                   <ErrorMessage name="phone" />
-                </div>
+                </div> -->
               </template>
             </Field>
           </ion-item>
+          <div class="ion-margin-horizontal">
+            <ErrorMessage name="phone" class="error" />
+          </div>
 
-          <ion-button expand="full" type="submit">Register</ion-button>
+          <ion-button
+            class="ion-margin"
+            expand="full"
+            shape="round"
+            type="submit"
+            :disabled="hasErrors"
+            >Register</ion-button
+          >
           <div style="text-align: center; margin-top: 12px; text">
             <router-link style="margin: auto" to="/login">
               J'ai déjà un compte
@@ -125,7 +191,7 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useAuthStore } from "../stores/auth";
 import { useRouter } from "vue-router";
 import {
@@ -136,6 +202,8 @@ import {
   IonContent,
   IonSpinner,
   IonInput,
+  IonButtons,
+  IonBackButton,
 } from "@ionic/vue";
 import {
   useForm,
@@ -173,7 +241,6 @@ defineRule("password", (value: string) => {
 });
 defineRule("phoneNumber", (value: string) => {
   const phoneRegex = /^(\+33|0|0033)[1-9](\d{2}){4}$/; // Adjust this regex as per your phone number format
-
   if (!value || !phoneRegex.test(value)) {
     return "Please enter a valid phone number";
   }
@@ -230,9 +297,12 @@ export default {
     ErrorMessage,
     IonSpinner,
     IonInput,
+    IonButtons,
+    IonBackButton,
   },
   setup() {
     const { handleSubmit, resetForm, errors } = useForm();
+    const hasErrors = computed(() => Object.keys(errors.value).length > 0);
     const activeSpinner = ref(false);
 
     const error = ref(false);
@@ -257,10 +327,10 @@ export default {
           values.name,
           values.email,
           values.password,
-          values.location,
-          values.city,
+          values.phone,
           values.zip,
-          values.phone
+          values.city,
+          values.location
         );
         router.push({ path: "/home" });
       } catch (err) {
@@ -288,6 +358,7 @@ export default {
       addressRules,
       cityRules,
       postalCodeRules,
+      hasErrors,
     };
   },
 };
