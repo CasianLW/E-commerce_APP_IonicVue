@@ -43,6 +43,11 @@ const routes = [
     component: () => import("@/views/News.vue"),
   },
   {
+    path: "/news/:id",
+    name: "Article",
+    component: () => import("@/views/Article.vue"),
+  },
+  {
     path: "/account",
     name: "Account",
     component: () => import("@/views/Account.vue"),
@@ -70,6 +75,22 @@ const routes = [
     path: "/register",
     name: "Register",
     component: () => import("@/views/Register.vue"),
+    meta: {
+      requiresGuest: true,
+    },
+  },
+  {
+    path: "/forgot-password",
+    name: "ForgotPassword",
+    component: () => import("@/views/ForgotPassword.vue"),
+    meta: {
+      requiresGuest: true,
+    },
+  },
+  {
+    path: "/forgot-password/:token",
+    name: "ResetPassword",
+    component: () => import("@/views/ResetPassword.vue"),
     meta: {
       requiresGuest: true,
     },
