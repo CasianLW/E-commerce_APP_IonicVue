@@ -7,6 +7,7 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: {},
     loggedIn: !!localStorage.getItem("token"),
+    events: [],
   }),
   actions: {
     async register(name, email, password, phone, zip, city, location) {
@@ -121,6 +122,31 @@ export const useAuthStore = defineStore("auth", {
         return response.data; // ou toute autre donnée pertinente à renvoyer
       } catch (error) {
         throw error; // Renvoyer l'erreur pour une gestion ultérieure
+      }
+    },
+    async getEvents() {
+      try {
+        const response = await axios.get(`${apiUrl}/api/store/events`);
+        this.events = response.data.events;
+      } catch (error) {
+        console.error("Fetching events failed:", error);
+        throw error;
+      }
+    },
+    async getArticle(id) {
+      try {
+        const response = await axios.get(`${apiUrl}/api/store/events/${id}`, {
+          headers: {
+            Authorization: `Bearer ${this.user.token}`,
+          },
+        });
+
+        // The response data should be the article, you might need to adjust this according to your API
+        const article = response.data;
+        return article;
+      } catch (error) {
+        console.error("Fetching article failed:", error);
+        throw error;
       }
     },
 
