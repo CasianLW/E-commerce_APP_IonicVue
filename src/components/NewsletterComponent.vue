@@ -1,5 +1,5 @@
 <template>
-  <ion-card style="margin: auto" class="newsletter">
+  <div style="margin: auto" class="newsletter">
     <ion-card-header class="header_newsletter">
       <img
         style="max-width: 120px; margin: auto"
@@ -27,7 +27,7 @@
         >Subscribe</ion-button
       >
     </ion-card-content>
-  </ion-card>
+  </div>
 </template>
 
 <script>
