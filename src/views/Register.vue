@@ -239,12 +239,24 @@ defineRule("password", (value: string) => {
   }
   return true;
 });
+defineRule("passwordNumber", (value) => {
+  if (!/(?=.*\d)/.test(value)) {
+    return "Le mot de passe doit contenir au moins un chiffre";
+  }
+  return true;
+});
 defineRule("phoneNumber", (value: string) => {
   const phoneRegex = /^(\+33|0|0033)[1-9](\d{2}){4}$/; // Adjust this regex as per your phone number format
   if (!value || !phoneRegex.test(value)) {
     return "Please enter a valid phone number";
   }
 
+  return true;
+});
+defineRule("passwordLowercase", (value) => {
+  if (!/(?=.*[a-z])/.test(value)) {
+    return "Le mot de passe doit contenir au moins une lettre minuscule";
+  }
   return true;
 });
 
@@ -275,6 +287,9 @@ configure({
       customRequired: "Champ obligatoire",
       customEmail: "Entrez une adresse email valide",
       password: "Le mot de passe doit contenir au moins une lettre capitale",
+      passwordNumber: "Le mot de passe doit contenir au moins un chiffre",
+      passwordLowercase:
+        "Le mot de passe doit contenir au moins une lettre minuscule",
       required: "Ce champ est obligatoire",
       min: "Le mot de passe doit avoir au moins 8 caractères",
       email: "Entrez une adresse email valide",
@@ -310,7 +325,8 @@ export default {
 
     const usernameRules = "required";
     const emailRules = "customRequired|email";
-    const passwordRules = "required|min:8|password";
+    const passwordRules =
+      "required|min:8|password|passwordNumber|passwordLowercase";
     const phoneRules = "phoneNumber";
     const addressRules = "address";
     const cityRules = "city";
