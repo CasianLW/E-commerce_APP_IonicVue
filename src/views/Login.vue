@@ -84,7 +84,7 @@
             </router-link>
           </div>
           <div style="text-align: center; margin-top: 12px; text">
-            <router-link style="margin: auto" to="/register">
+            <router-link style="margin: auto" to="/forgot-password">
               Mot de passe oublié
             </router-link>
           </div>
