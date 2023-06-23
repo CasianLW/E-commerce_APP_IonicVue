@@ -48,13 +48,75 @@
           </div>
           <div class="news">
             <div class="news-choice">
-              <div class="active-element"></div>
-              <div class="active-text">Tendances</div>
-              <div>Récents</div>
+              <div
+                class="active-element"
+                :style="{
+                  transform:
+                    activeChoice === 'Récents'
+                      ? 'translateX(4px)'
+                      : 'translateX(calc(100% + 4px))',
+                }"
+              ></div>
+              <div
+                :class="{ 'active-text': activeChoice === 'Récents' }"
+                @click="setActiveChoice('Récents')"
+              >
+                Récents
+              </div>
+              <div
+                :class="{ 'active-text': activeChoice === 'Tendances' }"
+                @click="setActiveChoice('Tendances')"
+              >
+                Tendances
+              </div>
+            </div>
+            <!-- <div class="news-list"> -->
+            <div
+              :class="[
+                'news-list',
+                { 'active-tendances': activeChoice === 'Tendances' },
+              ]"
+            >
+              <div
+                :class="[
+                  'recents-list',
+                  { 'active-news': activeChoice === 'Récents' },
+                ]"
+              >
+                <NewsCard
+                  v-for="(event, index) in events.slice().reverse().slice(0, 4)"
+                  :key="event.id"
+                  :id="event.id"
+                  :imgSrc="event.image"
+                  :imgAlt="event.title"
+                  :description="event.content"
+                  :author="event.author"
+                  :timeAgo="formatTimeAgo(event.createdAt)"
+                />
+              </div>
+              <div
+                :class="[
+                  'tendances-list',
+                  { 'active-news': activeChoice === 'Tendances' },
+                ]"
+              >
+                <NewsCard
+                  v-for="i in 4"
+                  :key="i"
+                  imgSrc="https://images.unsplash.com/photo-1635002962487-2c1d4d2f63c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+                  imgAlt="technologie image"
+                  description="Nouvelle tendance permettant aux joueurs de ressentir plus de sensations"
+                  author="Auteur"
+                  timeAgo="1h ago"
+                />
+              </div>
             </div>
           </div>
         </div>
-        <div></div>
+        <ion-button expand="full" shape="round" routerLink="/news/all">
+          Tous les articles
+        </ion-button>
+        <NewsletterComponent style="padding-top: 40px" />
       </main>
     </ion-content>
   </ion-page>
@@ -70,9 +132,14 @@ import {
   IonBackButton,
   IonButtons,
 } from "@ionic/vue";
+import NewsCard from "@/components/news/NewsCard.vue";
+import NewsletterComponent from "@/components/NewsletterComponent.vue";
+import { useAuthStore } from "../stores/auth";
+import { onMounted, computed, ref } from "vue";
 export default {
   name: "News",
   components: {
+    NewsCard,
     IonContent,
     IonHeader,
     IonPage,
@@ -80,21 +147,87 @@ export default {
     IonToolbar,
     IonBackButton,
     IonButtons,
+    NewsletterComponent,
   },
   data() {
     return {
-      activeChoice: "Tendances", // This will hold the current active choice
+      activeChoice: "Récents", // This will hold the current active choice
+    };
+  },
+  setup() {
+    const authStore = useAuthStore();
+    const events = ref([]);
+    const loaded = ref(false);
+
+    onMounted(async () => {
+      await authStore.getEvents();
+      // events.value = authStore.events;
+      events.value = authStore.events.filter((event) => event.published);
+
+      loaded.value = true;
+    });
+
+    return {
+      events: computed(() => events.value),
+      loaded,
     };
   },
   methods: {
     setActiveChoice(choice) {
       this.activeChoice = choice;
     },
+    formatTimeAgo(dateTime) {
+      const now = new Date();
+      const createdAt = new Date(dateTime);
+      const timeDiff = now - createdAt;
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+
+      let timeAgo = "";
+      if (days > 0) {
+        timeAgo += `${days}d${days > 1 ? "" : ""}`;
+      }
+      if (hours > 0) {
+        timeAgo += `${days > 0 ? " " : ""}${hours}h${hours > 1 ? "" : ""}`;
+      }
+      if (timeAgo === "") {
+        timeAgo = "just now";
+      } else {
+        timeAgo += " ago";
+      }
+
+      return timeAgo;
+    },
   },
 };
 </script>
 
 <style scoped>
+.news-list {
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+  transform: translateX(0%) scale(1) !important;
+  transition: all 0.3s ease-in-out;
+}
+.news-list > div {
+  opacity: 0;
+}
+.news-list div {
+  flex: 1 0 100%;
+  transition: all 0.3s ease-in-out;
+  /* transform: translateX(-100%) scale(1); */
+}
+
+.active-tendances {
+  transform: translateX(-105%) scale(1) !important;
+}
+.news-list div.active-news {
+  opacity: 1 !important;
+}
 .categories {
   margin-top: 40px;
   display: flex;
@@ -180,6 +313,9 @@ ion-content {
 }
 
 /*select news  */
+.news {
+  margin-top: 72px;
+}
 .news-choice div {
   font-weight: 500;
   width: 50%;
@@ -199,9 +335,11 @@ ion-content {
 .active-element {
   transition: all 0.3s ease-in-out;
   position: absolute;
-  transform: translateX(4px);
+  /* transform: translateX(4px); */
+  /* left: 0; */
   z-index: 0;
   width: 45% !important;
+  /* margin: 0 8px 0 8px; */
   height: 36px;
   background-color: #d3fe57;
   border-radius: 25px;
