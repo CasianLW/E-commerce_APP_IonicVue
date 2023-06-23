@@ -3,42 +3,61 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="/home"></ion-back-button>
         </ion-buttons>
-        <ion-title>Contact Us</ion-title>
+        <ion-title class="ion-text-center ion-align-items-center"
+          >Contact</ion-title
+        >
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div class="ion-padding">
-        <h2>Get In Touch</h2>
-
-        <form @submit.prevent="submitForm">
-          <ion-item>
-            <ion-label position="floating">Name</ion-label>
-            <ion-input v-model="form.name"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" v-model="form.email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Message</ion-label>
-            <ion-textarea v-model="form.message"></ion-textarea>
-          </ion-item>
-          <ion-button expand="full" type="submit" class="ion-margin-top"
-            >Submit</ion-button
-          >
-        </form>
-
-        <h2>Find Us</h2>
-        <p>123 Fake Street, Example City, EX1 2BD</p>
-        <p>Phone: 01234 567890</p>
-        <p>Email: info@example.com</p>
-
-        <div id="map">
-          <GoogleMaps />
+      <main>
+        <div class="ion-padding">
+          <h2>Get In Touch</h2>
+          <form @submit.prevent="submitForm">
+            <ion-item>
+              <!-- <ion-label position="floating">Name</ion-label> -->
+              <ion-input
+                v-model="form.name"
+                label="Name:"
+                placeholder="Nom.."
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <!-- <ion-label position="floating">Email</ion-label> -->
+              <ion-input
+                type="email"
+                v-model="form.email"
+                label="Email:"
+                placeholder="exemple@mail.com"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <!-- <ion-label position="floating">Message</ion-label> -->
+              <ion-textarea
+                style="height: 140px"
+                v-model="form.message"
+                label="Message:"
+                placeholder="(200 characters max)"
+              ></ion-textarea>
+            </ion-item>
+            <ion-button
+              expand="full"
+              shape="round"
+              type="submit"
+              class="ion-margin-top ion-margin-bottom"
+              >Submit</ion-button
+            >
+          </form>
+          <h2 class="ion-padding-top">Find Us</h2>
+          <p>14 rue des Jeux, GTA, San Andreas</p>
+          <p>01 02 03 01 05</p>
+          <p>info@gamoshi.com</p>
+          <div id="map">
+            <GoogleMaps />
+          </div>
         </div>
-      </div>
+      </main>
     </ion-content>
   </ion-page>
 </template>
