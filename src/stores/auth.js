@@ -97,6 +97,33 @@ export const useAuthStore = defineStore("auth", {
         throw new Error(error.message);
       }
     },
+    async sendPasswordResetLink(email) {
+      try {
+        await axios.post(`${apiUrl}/api/auth/forgot-password`, {
+          email: email,
+        });
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+    async resetPassword(token, password) {
+      try {
+        const response = await axios.post(
+          `${apiUrl}/api/auth/reset-password/${token}`,
+          {
+            password: password,
+          }
+        );
+
+        // Traiter la réponse de la requête si nécessaire
+        // ...
+
+        return response.data; // ou toute autre donnée pertinente à renvoyer
+      } catch (error) {
+        throw error; // Renvoyer l'erreur pour une gestion ultérieure
+      }
+    },
+
     async createCheckoutSession() {
       if (!this.loggedIn) {
         throw new Error("User must be logged in to start checkout session");
