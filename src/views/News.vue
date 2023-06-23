@@ -131,6 +131,7 @@ import {
   IonToolbar,
   IonBackButton,
   IonButtons,
+  IonButton,
 } from "@ionic/vue";
 import NewsCard from "@/components/news/NewsCard.vue";
 import NewsletterComponent from "@/components/NewsletterComponent.vue";
@@ -148,6 +149,7 @@ export default {
     IonBackButton,
     IonButtons,
     NewsletterComponent,
+    IonButton,
   },
   data() {
     return {
