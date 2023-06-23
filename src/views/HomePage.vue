@@ -46,7 +46,10 @@
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr">
           <div>
-            <img src="@/ressources/homepage/nftHeroHomepage.png" alt="" />
+            <img
+              src="@/ressources/homepage/nftHeroHomepage.png"
+              alt="image hero"
+            />
           </div>
           <div style="margin: auto">
             <p style="margin-top: 32px">
