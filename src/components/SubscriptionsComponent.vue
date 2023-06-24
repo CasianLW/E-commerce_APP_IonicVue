@@ -49,8 +49,17 @@
               </div>
             </div>
             <div class="subscribe-infos">
-              <p>{{ item.price }} / MONTH</p>
-              <button>Subscribe</button>
+              <p style="margin-bottom: 4px">{{ item.price }} / MONTH</p>
+              <!-- <button>Subscribe</button> -->
+              <router-link
+                class="button-subscribe"
+                v-if="userIsAuthenticated"
+                to="/homepage"
+                >Subscribe</router-link
+              >
+              <router-link class="button-subscribe" v-else to="/login"
+                >Login to Subscribe</router-link
+              >
             </div>
           </ion-card-content>
         </Slide>
@@ -80,6 +89,8 @@ import {
 } from "@ionic/vue";
 
 import "vue3-carousel/dist/carousel.css";
+import { useAuthStore } from "@/stores/auth.js";
+import { computed } from "vue";
 
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
@@ -97,39 +108,45 @@ export default {
     Pagination,
     Navigation,
   },
-  data() {
+  setup() {
+    const authStore = useAuthStore();
+    const userIsAuthenticated = computed(() => authStore.loggedIn);
+
+    const items = [
+      {
+        title: "Supporter",
+        list: [
+          "Early accès à tous les jeux",
+          "Supporter profile banner & name color",
+          "Vote for further updates",
+        ],
+        price: "4.99€",
+      },
+      {
+        title: "Uber",
+        list: [
+          "Supporter bonuses",
+          "Uber profile banner & name color",
+          "In-game battlepasses",
+        ],
+        price: "19.99€",
+      },
+      {
+        title: "Final Boss",
+        list: [
+          "Uber bonuses",
+          "FINAL BOSS profile banner & name color",
+          "Because i can",
+          "Access to farmbots",
+        ],
+        price: "49.99€",
+      },
+      // Add more items here...
+    ];
+
     return {
-      items: [
-        {
-          title: "Supporter",
-          list: [
-            "Early accès à tous les jeux",
-            "Supporter profile banner & name color",
-            "Vote for further updates",
-          ],
-          price: "4.99€",
-        },
-        {
-          title: "Uber",
-          list: [
-            "Supporter bonuses",
-            "Uber profile banner & name color",
-            "In-game battlepasses",
-          ],
-          price: "19.99€",
-        },
-        {
-          title: "Final Boss",
-          list: [
-            "Uber bonuses",
-            "FINAL BOSS profile banner & name color",
-            "Because i can",
-            "Access to farmbots",
-          ],
-          price: "49.99€",
-        },
-        // Add more items here...
-      ],
+      userIsAuthenticated,
+      items,
     };
   },
 };
@@ -173,7 +190,10 @@ export default {
   font-weight: 800;
   margin: 0;
 }
-.subscribe-infos button {
+.subscribe-infos .button-subscribe {
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
   background-color: black;
   padding: 8px 24px;
   border-radius: 99px;
