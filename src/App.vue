@@ -114,7 +114,7 @@
           >
             <ion-tab-button class="icon-container">
               <a href="">
-                <ion-menu-button></ion-menu-button>
+                <ion-menu-button style="max-height: 24px"></ion-menu-button>
                 <ion-label>Menu</ion-label>
               </a>
             </ion-tab-button>
