@@ -132,33 +132,6 @@ export default {
       loaded,
     };
   },
-  methods: {
-    formatTimeAgo(dateTime) {
-      const now = new Date();
-      const createdAt = new Date(dateTime);
-      const timeDiff = now - createdAt;
-
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-
-      let timeAgo = "";
-      if (days > 0) {
-        timeAgo += `${days}d${days > 1 ? "" : ""}`;
-      }
-      if (hours > 0) {
-        timeAgo += `${days > 0 ? " " : ""}${hours}h${hours > 1 ? "" : ""}`;
-      }
-      if (timeAgo === "") {
-        timeAgo = "just now";
-      } else {
-        timeAgo += " ago";
-      }
-
-      return timeAgo;
-    },
-  },
 };
 </script>
 
