@@ -41,7 +41,9 @@ export default {
   color: black;
   font-weight: 500;
 }
-
+a {
+  text-decoration: none;
+}
 .text-div {
   flex: 0 0 65%;
   padding: 8px;
