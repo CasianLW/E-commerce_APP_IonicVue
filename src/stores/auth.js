@@ -65,7 +65,7 @@ export const useAuthStore = defineStore("auth", {
 
         this.loggedIn = true;
 
-        this.user = user;
+        this.user = user.user;
         localStorage.setItem("token", user.token);
         console.log(this.loggedIn);
 
@@ -146,6 +146,36 @@ export const useAuthStore = defineStore("auth", {
         return article;
       } catch (error) {
         console.error("Fetching article failed:", error);
+        throw error;
+      }
+    },
+    async editUser(id, name, email, location, city, zip, avatar) {
+      const url = `${apiUrl}/api/store/users/${id}`;
+      try {
+        const response = await axios.put(
+          url,
+          {
+            name,
+            email,
+            location,
+            city,
+            zip,
+            avatar,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.user.token}`,
+            },
+          }
+        );
+
+        if (response.status >= 400) {
+          throw new Error(`Editing failed with status ${response.status}`);
+        }
+
+        this.user = response.data.user;
+      } catch (error) {
+        console.error("Editing failed:", error);
         throw error;
       }
     },
