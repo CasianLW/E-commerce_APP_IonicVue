@@ -96,9 +96,6 @@ const routes = [
     path: "/forgot-password/:token",
     name: "ResetPassword",
     component: () => import("@/views/ResetPassword.vue"),
-    meta: {
-      requiresGuest: true,
-    },
   },
   {
     path: "/:catchAll(.*)",
