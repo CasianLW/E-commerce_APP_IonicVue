@@ -8,6 +8,7 @@ export const useAuthStore = defineStore("auth", {
     user: {},
     loggedIn: !!localStorage.getItem("token"),
     events: [],
+    subscriptions: [],
   }),
   actions: {
     async register(name, email, password, phone, zip, city, location) {
@@ -179,7 +180,21 @@ export const useAuthStore = defineStore("auth", {
         throw error;
       }
     },
+    async getSubscriptions() {
+      try {
+        const response = await axios.get(`${apiUrl}/store/subscriptions`, {
+          headers: {
+            Authorization: `Bearer ${this.user.token}`,
+          },
+        });
 
+        // Update the subscriptions state with the retrieved data
+        this.subscriptions = response.data.subscriptions;
+      } catch (error) {
+        console.error("Fetching subscriptions failed:", error);
+        throw error;
+      }
+    },
     async createCheckoutSession() {
       if (!this.loggedIn) {
         throw new Error("User must be logged in to start checkout session");
