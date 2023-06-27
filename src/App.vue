@@ -193,7 +193,7 @@ import {
   personCircle,
   newspaper,
 } from "ionicons/icons";
-import { useAuthStore } from "@/stores/auth.js";
+import { useAuthStore } from "./stores/auth.js";
 
 import { menuController } from "@ionic/vue";
 import { useRouter } from "vue-router";
