@@ -11,7 +11,7 @@
           >
         </ion-toolbar>
       </ion-header>
-      <main class="ion-padding">
+      <main class="ion-margin-horizontal">
         <h1 style="font-weight: 900; font-size: 40px; color: white">
           Tous les articles
         </h1>
