@@ -98,6 +98,11 @@ const routes = [
     component: () => import("@/views/ResetPassword.vue"),
   },
   {
+    path: "/checkout",
+    name: "CheckoutSuccess",
+    component: () => import("@/views/checkout/CheckoutSuccess.vue"),
+  },
+  {
     path: "/:catchAll(.*)",
     redirect: "/homepage",
   },
