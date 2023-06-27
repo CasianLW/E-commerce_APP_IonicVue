@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { Base64 } from "js-base64";
 
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
@@ -12,7 +13,7 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     async register(name, email, password, phone, zip, city, location) {
-      console.log(name, email, password, phone, zip, city, location);
+      // console.log(name, email, password, phone, zip, city, location);
 
       try {
         const response = await fetch(`${apiUrl}/api/auth/register`, {
@@ -39,7 +40,7 @@ export const useAuthStore = defineStore("auth", {
 
         if (user) {
           this.loggedIn = true;
-          this.user = user;
+          this.user = user.user;
           localStorage.setItem("token", user.token);
         } else {
           throw new Error("Registration failed: no user data in response");
@@ -49,7 +50,6 @@ export const useAuthStore = defineStore("auth", {
         throw error;
       }
     },
-
     async login(email, password) {
       // console.log(email);
       // console.log(password);
@@ -61,17 +61,14 @@ export const useAuthStore = defineStore("auth", {
         });
 
         const user = response.data;
-        console.log(user.user);
-        console.log(this.loggedIn);
+        // console.log(user.user);
+        // console.log(this.loggedIn);
 
         this.loggedIn = true;
 
         this.user = user.user;
         localStorage.setItem("token", user.token);
-        console.log(this.loggedIn);
-
-        console.log("user");
-        console.log(this.user);
+        // console.log(this.loggedIn);
       } catch (error) {
         throw error;
       }
@@ -99,6 +96,7 @@ export const useAuthStore = defineStore("auth", {
         throw new Error(error.message);
       }
     },
+
     async sendPasswordResetLink(email) {
       try {
         await axios.post(`${apiUrl}/api/auth/forgot-password`, {
@@ -125,6 +123,7 @@ export const useAuthStore = defineStore("auth", {
         throw error; // Renvoyer l'erreur pour une gestion ultérieure
       }
     },
+
     async getEvents() {
       try {
         const response = await axios.get(`${apiUrl}/api/store/events`);
@@ -148,6 +147,33 @@ export const useAuthStore = defineStore("auth", {
       } catch (error) {
         console.error("Fetching article failed:", error);
         throw error;
+      }
+    },
+    async getUser() {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+
+        // Decode the token manually
+        const tokenPayload = token.split(".")[1];
+        // @ts-ignore
+        const decodedToken = JSON.parse(atob(tokenPayload));
+
+        const userId = decodedToken.user.id;
+        const response = await axios.get(
+          `${apiUrl}/api/store/users/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // Handle the response data here
+        console.log(response.data);
+        this.user = response.data.user;
+      } catch (error) {
+        // Handle any errors that occur during the request
+        console.error(error);
       }
     },
     async editUser(id, name, email, location, city, zip, avatar) {
@@ -182,7 +208,7 @@ export const useAuthStore = defineStore("auth", {
     },
     async getSubscriptions() {
       try {
-        const response = await axios.get(`${apiUrl}/store/subscriptions`, {
+        const response = await axios.get(`${apiUrl}/api/store/subscriptions`, {
           headers: {
             Authorization: `Bearer ${this.user.token}`,
           },
