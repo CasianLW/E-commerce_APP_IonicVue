@@ -94,7 +94,7 @@ export default {
 
     onMounted(async () => {
       if (!id) {
-        router.push("/home");
+        router.push("/homepage");
         return;
       }
 
@@ -104,7 +104,7 @@ export default {
         console.log(result);
       } catch (error) {
         console.log(error);
-        router.push("/home");
+        router.push("/homepage");
       }
     });
 

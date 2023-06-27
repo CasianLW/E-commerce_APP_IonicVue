@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/home"></ion-back-button>
+          <ion-back-button default-href="/homepage"></ion-back-button>
         </ion-buttons>
         <ion-title class="ion-text-center ion-align-items-center"
           >Register</ion-title
@@ -348,7 +348,7 @@ export default {
           values.city,
           values.location
         );
-        router.push({ path: "/home" });
+        router.push({ path: "/homepage" });
       } catch (err) {
         error.value = true;
         console.log(err);
