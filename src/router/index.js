@@ -98,9 +98,14 @@ const routes = [
     component: () => import("@/views/ResetPassword.vue"),
   },
   {
-    path: "/checkout",
+    path: "/checkout/success",
     name: "CheckoutSuccess",
     component: () => import("@/views/checkout/CheckoutSuccess.vue"),
+  },
+  {
+    path: "/checkout/failed",
+    name: "CheckoutFail",
+    component: () => import("@/views/checkout/CheckoutFail.vue"),
   },
   {
     path: "/:catchAll(.*)",
