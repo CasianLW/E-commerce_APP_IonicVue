@@ -23,8 +23,11 @@ import "@ionic/vue/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+
 // custom css
 import "./theme/style.css";
+
+import './registerServiceWorker'
 
 const pinia = createPinia(); // Define pinia variable here
 
