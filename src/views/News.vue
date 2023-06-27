@@ -84,7 +84,7 @@
                 ]"
               >
                 <NewsCard
-                  v-for="(event, index) in events.slice().reverse().slice(0, 4)"
+                  v-for="(event, index) in events.slice().slice(0, 4)"
                   :key="event.id"
                   :id="event.id"
                   :imgSrc="event.image"
@@ -101,13 +101,17 @@
                 ]"
               >
                 <NewsCard
-                  v-for="i in 4"
-                  :key="i"
-                  imgSrc="https://images.unsplash.com/photo-1635002962487-2c1d4d2f63c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
-                  imgAlt="technologie image"
-                  description="Nouvelle tendance permettant aux joueurs de ressentir plus de sensations"
-                  author="Auteur"
-                  timeAgo="1h ago"
+                  v-for="(event, index) in events
+                    .filter((event) => event.tendances)
+                    .slice()
+                    .slice(0, 4)"
+                  :key="event.id"
+                  :id="event.id"
+                  :imgSrc="event.image"
+                  :imgAlt="event.title"
+                  :description="event.content"
+                  :author="event.author"
+                  :timeAgo="formatTimeAgo(event.createdAt)"
                 />
               </div>
             </div>
@@ -163,9 +167,9 @@ export default {
 
     onMounted(async () => {
       await authStore.getEvents();
-      // events.value = authStore.events;
-      events.value = authStore.events.filter((event) => event.published);
-
+      events.value = authStore.events
+        .filter((event) => event.published)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       loaded.value = true;
     });
 
