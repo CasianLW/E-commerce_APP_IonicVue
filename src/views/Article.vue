@@ -11,7 +11,7 @@
           >
         </ion-toolbar>
       </ion-header>
-      <main class="ion-padding">
+      <main class="ion-margin-horizontal">
         <div class="header-article">
           <h1>{{ article.title }}</h1>
           <div class="square-image-container">
