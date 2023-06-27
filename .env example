@@ -1,0 +1,33 @@
+# ENVIRONMENT VARIABLES #
+#
+# This file is used by the `dotenv` package AND the `vite` package.
+# The `dotenv` package is used by the `prisma` package.
+#
+/*
+  * 1. Create a Stripe account
+  * 2. Create a product
+  * 3. Create 3 prices for this product
+  * 4. Copy the API keys
+  * 5. Paste the API keys below
+  * 6. Copy the price IDs
+  * 7. Paste the price IDs below
+  * 8. Copy the secret key
+  * 9. Paste the secret key below
+  * 10. Copy the webhook secret
+  * 11. Paste the webhook secret below
+  */
+VITE_APP_API_URL = http://127.0.0.1:3000 
+VITE_APP_STRIPE_API_FORFAIT_ONE=prod_NxZkpGAXRoj5DN
+VITE_APP_STRIPE_API_FORFAIT_TWO=
+VITE_APP_STRIPE_API_FORFAIT_THREE=
+VITE_APP_STRIPE_API_SECRET=sk_test_51NBeRVEzhkRoDzVyILiV5jdUBn2EtOJAgzMpmS1ZhRr2GuNIAXGomDAtrmRKE90ZAmpoafzAIawtxkJrXpTNHHgD00N3od4B3I
+VITE_APP_STRIPE_PUBLIC_KEY=pk_test_51NBeRVEzhkRoDzVyYVig92WDiJ63kSl6QHyw1vULiZaZI1qq47DfEiuO9GhVJrggcnwjKTkzd25rAQ8fbaZyP6WR007Jqg3ny9
+VITE_APP_STRIPE_WEBHOOK_SECRET=
+
+STRIPE_SECRET_KEY=sk_test_51NBeRVEzhkRoDzVyILiV5jdUBn2EtOJAgzMpmS1ZhRr2GuNIAXGomDAtrmRKE90ZAmpoafzAIawtxkJrXpTNHHgD00N3od4B3I
+
+VITE_APP_PORT=3000
+
+
+VUE_APP_GOOGLE_MAPS_API_KEY=AIzaSyBpOodUcKB2gzNjnBeuobFPmNv9dNllsbE
+VITE_APP_GOOGLE_MAPS_API_KEY=AIzaSyBpOodUcKB2gzNjnBeuobFPmNv9dNllsbE
