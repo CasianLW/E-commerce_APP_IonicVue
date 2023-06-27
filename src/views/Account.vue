@@ -71,11 +71,7 @@
                   @click="handleResetLink"
                   >Yes</ion-button
                 >
-                <ion-button
-                  color="danger"
-                  fill="outline"
-                  size="large"
-                  @click="closeModal"
+                <ion-button color="danger" size="large" @click="closeModal"
                   >No</ion-button
                 >
               </div>
