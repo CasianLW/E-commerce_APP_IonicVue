@@ -19,10 +19,10 @@ export default {
   props: ["id", "imgSrc", "imgAlt", "description", "author", "timeAgo"],
   methods: {
     formatDescription(description) {
-      if (description.length <= 80) {
+      if (description.length <= 70) {
         return description;
       } else {
-        return description.slice(0, 80) + "...";
+        return description.slice(0, 70) + "...";
       }
     },
   },
