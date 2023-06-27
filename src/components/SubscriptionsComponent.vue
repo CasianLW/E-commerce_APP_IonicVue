@@ -41,9 +41,17 @@
       <Carousel style="width: 100%">
         <Slide style="width: 100%" v-for="(item, index) in items" :key="index">
           <ion-card-content class="slider-item">
-            <ion-card-title class="card-title">{{ item.title }}</ion-card-title>
+            <ion-card-title
+              style="text-transform: uppercase"
+              class="card-title"
+              >{{ item.name }}</ion-card-title
+            >
             <div>
-              <div class="list-item" v-for="(list, i) in item.list" :key="i">
+              <div
+                class="list-item"
+                v-for="(list, i) in item.listItems"
+                :key="i"
+              >
                 <img src="@/ressources/checkboxIcon.svg" alt="icone checkbox" />
                 <p>{{ list }}</p>
               </div>
@@ -55,6 +63,7 @@
                 class="button-subscribe"
                 v-if="userIsAuthenticated"
                 to="/homepage"
+                @click.prevent="subscribe(item)"
                 >Subscribe</router-link
               >
               <router-link class="button-subscribe" v-else to="/login"
@@ -90,9 +99,11 @@ import {
 
 import "vue3-carousel/dist/carousel.css";
 import { useAuthStore } from "@/stores/auth.js";
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
 
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import axios from "axios";
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 export default {
   name: "SubscriptionsComponent",
@@ -111,42 +122,56 @@ export default {
   setup() {
     const authStore = useAuthStore();
     const userIsAuthenticated = computed(() => authStore.loggedIn);
+    const items = ref([]);
 
-    const items = [
-      {
-        title: "Supporter",
-        list: [
-          "Early accès à tous les jeux",
-          "Supporter profile banner & name color",
-          "Vote for further updates",
-        ],
-        price: "4.99€",
-      },
-      {
-        title: "Uber",
-        list: [
-          "Supporter bonuses",
-          "Uber profile banner & name color",
-          "In-game battlepasses",
-        ],
-        price: "19.99€",
-      },
-      {
-        title: "Final Boss",
-        list: [
-          "Uber bonuses",
-          "FINAL BOSS profile banner & name color",
-          "Because i can",
-          "Access to farmbots",
-        ],
-        price: "49.99€",
-      },
-      // Add more items here...
-    ];
+    const subscribe = async (item) => {
+      try {
+        const response = await axios.post(
+          `${apiUrl}/api/store/create-checkout-session`,
+          {
+            price_id: item.stripePriceId,
+            customer_id: authStore.user.stripeCustomerId,
+          }
+        );
+
+        // const data = await response.json();
+        const data = await response.data;
+        console.log(data);
+
+        // then redirect to Stripe Checkout
+        // if (data.id) {
+        if (data.url) {
+          // Note: this assumes your website is already configured to handle deep links.
+          // window.location.href = `https://checkout.stripe.com/pay/${data.id}`;
+          window.location.href = `${data.url}`;
+        } else {
+          throw new Error("Failed to create checkout session.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    onMounted(async () => {
+      try {
+        await authStore.getSubscriptions();
+        items.value = authStore.subscriptions.map((sub) => {
+          // split listItems into an array
+          return {
+            ...sub,
+            listItems: sub.listItems.split("/"),
+          };
+        });
+        console.log(items.value);
+      } catch (error) {
+        console.log(error);
+      }
+    });
 
     return {
       userIsAuthenticated,
       items,
+      subscribe,
     };
   },
 };
