@@ -221,6 +221,23 @@ export const useAuthStore = defineStore("auth", {
         throw error;
       }
     },
+    async sendEmail(name, email, content) {
+      try {
+        console.log(name, email, content);
+        const response = await axios.post(`${apiUrl}/api/store/email`, {
+          name: name,
+          email: email,
+          content: content,
+        });
+
+        return response.data;
+        console.log(response.data);
+      } catch (error) {
+        console.error("Sending mail failed:", error);
+        throw error;
+      }
+    },
+
     async createCheckoutSession() {
       if (!this.loggedIn) {
         throw new Error("User must be logged in to start checkout session");
