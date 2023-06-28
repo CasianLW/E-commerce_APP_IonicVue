@@ -16,7 +16,6 @@
           <h2>Get In Touch</h2>
           <form @submit.prevent="submitForm">
             <ion-item>
-              <!-- <ion-label position="floating">Name</ion-label> -->
               <ion-input
                 v-model="form.name"
                 label="Name:"
@@ -24,7 +23,6 @@
               ></ion-input>
             </ion-item>
             <ion-item>
-              <!-- <ion-label position="floating">Email</ion-label> -->
               <ion-input
                 type="email"
                 v-model="form.email"
@@ -33,7 +31,6 @@
               ></ion-input>
             </ion-item>
             <ion-item>
-              <!-- <ion-label position="floating">Message</ion-label> -->
               <ion-textarea
                 style="height: 140px"
                 v-model="form.message"
@@ -48,6 +45,9 @@
               class="ion-margin-top ion-margin-bottom"
               >Submit</ion-button
             >
+            <p style="color: #7458ea" class="ion-text-center">
+              {{ mailMessage }}
+            </p>
           </form>
           <h2 class="ion-padding-top">Find Us</h2>
           <p>14 rue des Jeux, GTA, San Andreas</p>
@@ -79,6 +79,7 @@ import {
 } from "@ionic/vue";
 import { ref } from "vue";
 import GoogleMaps from "@/components/GoogleMaps.vue";
+import { useAuthStore } from "../stores/auth";
 
 export default {
   components: {
@@ -102,15 +103,41 @@ export default {
       email: "",
       message: "",
     });
+    const mailMessage = ref("");
 
-    function submitForm() {
-      console.log(form.value);
-      // Send form data to your server
+    const authStore = useAuthStore();
+
+    if (authStore.isAuthenticated) {
+      form.value.name = authStore.user?.name;
+      form.value.email = authStore.user?.email;
+    }
+
+    async function submitForm() {
+      try {
+        const response = await authStore.sendEmail(
+          form.value.name,
+          form.value.email,
+          form.value.message
+        );
+        console.log("Email sent successfully");
+        console.log(response.data);
+        // Clear the form after a successful submission
+        form.value.name = "";
+        form.value.email = "";
+        form.value.message = "";
+      } catch (error) {
+        console.error("Sending email failed:", error);
+        mailMessage.value = "Sending email failed";
+        setTimeout(() => {
+          mailMessage.value = "";
+        }, 3000);
+      }
     }
 
     return {
       form,
       submitForm,
+      mailMessage,
     };
   },
 };
