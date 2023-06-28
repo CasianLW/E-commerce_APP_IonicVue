@@ -17,7 +17,11 @@
           <div class="square-image-container">
             <img
               style="border-radius: 25px"
-              :src="user.avatar"
+              :src="
+                user.avatar
+                  ? user.avatar
+                  : 'https://avatars.dicebear.com/api/male/john.png'
+              "
               :alt="user.name"
             />
           </div>
