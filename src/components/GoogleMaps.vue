@@ -33,8 +33,8 @@ export default {
     },
     initMap() {
       const map = new window.google.maps.Map(this.$refs.googleMap, {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
+        center: { lat: 48.870562, lng: 2.363184 },
+        zoom: 15,
       });
     },
   },
