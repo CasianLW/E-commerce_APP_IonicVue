@@ -53,12 +53,12 @@
           </div>
           <div style="margin: auto">
             <p style="margin-top: 32px">
-              Explication du concept, comment ca fonctionne, le pourquoi du
-              commennt
+              Plongez dans le monde révolutionnaire du crypto gaming, où le
+              divertissement
             </p>
             <p style="color: #7458ea; margin-top: 32px; font-weight: 600">
-              Explication du concept, comment ca fonctionne, le pourquoi du
-              commennt
+              rencontre la finance et chaque réussite peut conduire à des
+              récompenses dans le monde réel.
             </p>
           </div>
         </div>
